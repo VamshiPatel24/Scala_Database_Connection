@@ -1,0 +1,72 @@
+
+<configuration>
+
+    <!-- Timestamp -->
+    <timestamp key="startTime" datePattern="yyyyMMdd"/>
+
+    <!-- MAIN Rolling File Appender -->
+    <appender name="MAIN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./sample.%d{yyyyMMdd}.log</fileNamePattern>
+
+            <timeBasedFileNamingAndTriggerPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggerPolicy>
+
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date %level [%thread] %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ERROR File Appender -->
+    <appender name="ERROR" class="ch.qos.logback.core.FileAppender">
+        <file>./Error.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date %level [%thread] %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- MESSAGE Appender -->
+    <appender name="MESSAGE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./message.%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- STDERR Appender -->
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ROOT Logger -->
+    <root level="info">
+        <appender-ref ref="MAIN"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="STDERR"/>
+    </root>
+
+    <!-- Named Logger -->
+    <logger name="main">
+        <appender-ref ref="STDERR"/>
+    </logger>
+
+</configuration>
