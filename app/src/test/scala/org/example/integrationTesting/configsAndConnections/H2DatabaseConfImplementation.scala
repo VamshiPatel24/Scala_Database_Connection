@@ -4,11 +4,11 @@ import com.typesafe.config.{Config, ConfigFactory}
 
 object H2DatabaseConfImplementation extends H2DatabaseConfiguration {
 
-  override def loader: Config = ConfigFactory.load("h2conf.conf")
+  override def url: String = config.getString("url")
 
   override def config: Config = loader.getConfig("h2")
 
-  override def url: String = config.getString("url")
+  override def loader: Config = ConfigFactory.load("h2conf.conf")
 
   override def username: String = config.getString("username")
 

@@ -3,7 +3,7 @@ package org.example.integrationTesting
 import org.example.integrationTesting.configsAndConnections.H2DBConnection
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import com.github.tototoshi.csv.{ CSVWriter}
+import com.github.tototoshi.csv.{CSVWriter}
 import org.example.topArtist.repository.DBConnection
 import org.example.topArtist.service.Artist
 
@@ -60,7 +60,7 @@ class InsertIntegrationTest extends AnyFlatSpec with Matchers {
   }
   it should "insert records from CSV file" in {
     Using.resource(connection.createStatement()) { stmt =>
-     // createArtistsTable(stmt)
+      // createArtistsTable(stmt)
 
       // Create temp CSV file
       val tempCsv = File.createTempFile("artists", ".csv")

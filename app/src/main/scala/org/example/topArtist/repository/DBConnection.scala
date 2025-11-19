@@ -5,10 +5,13 @@ import org.example.topArtist.service.TopArtistImplementation.{msurl, password, u
 import org.slf4j.LoggerFactory
 
 import java.sql.{Connection, DriverManager}
+
 class DBConnection {
   private val logger = LoggerFactory.getLogger(getClass)
+
   def getConnection: Connection = {
-    logger.info("......................")
-     DriverManager.getConnection(msurl, username, password)
+    logger.info("Connection established")
+    DriverManager.getConnection(msurl, username, password)
+
   }
 }
