@@ -9,7 +9,9 @@ object App {
   private val logger = LoggerFactory.getLogger(getClass)
   def main(args: Array[String]): Unit = {
     println(greeting())
+    logger.info("::::::::::::::::::::::::::::::::::::::::")
   }
+
 
   def greeting(): String = "Hello, world!"
 }

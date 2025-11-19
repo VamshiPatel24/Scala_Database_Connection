@@ -1,11 +1,14 @@
 package org.example.unitTesting
 
+import org.example.App.getClass
 import org.example.topArtist.service.Artist
 import org.mockito.ArgumentMatchers.anyString
+import org.slf4j.LoggerFactory
 
 import java.sql.SQLException
 
 class CreateTableTest extends MSSQLDBConnectionTest {
+  private val logger = LoggerFactory.getLogger(getClass)
   val mockArtist = new Artist {
     override val getConnection = mockConnection
   }
@@ -17,7 +20,7 @@ class CreateTableTest extends MSSQLDBConnectionTest {
     when(mockStatement.execute(anyString())).thenReturn(false)
 
     noException should be thrownBy mockArtist.create
-
+   logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     verify(mockConnection).createStatement()
     verify(mockStatement).execute(anyString())
   }

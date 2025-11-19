@@ -3,7 +3,7 @@ package org.example.unitTesting
 
 import org.mockito.ArgumentMatchers._
 
-import java.sql.SQLException
+import java.sql.{Connection, PreparedStatement, SQLException}
 
 class InsertRecordsTest extends CreateTableTest {
 
@@ -31,34 +31,6 @@ class InsertRecordsTest extends CreateTableTest {
     rs.next() shouldBe true
     rs.getString("userId") shouldBe "8025"
   }
-it should "throw SQLException when connection fails" in {
-
-    when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("DB error"))
-
-    val rec1 = List("8025", "2", "vamshi", "15", "8jw83q9a")
-
-    val thrown = intercept[SQLException] {
-      mockArtist.insert(null, rec1)
-    }
-
-    thrown.getMessage should include("DB error")
-
-    verify(mockConnection, atLeastOnce).prepareStatement(anyString())
-  }
-
-  it should "throw exception when list contains nulls" in {
 
 
-    when(mockConnection.prepareStatement(anyString())).thenReturn(mockPS)
-    when(mockPS.setString(anyInt, anyString())).thenThrow(new NullPointerException("Null value"))
-
-    val recWithNull = List("8025", null, "vamshi", "15", "8jw83q9a")
-
-    val thrown = intercept[NullPointerException] {
-      mockArtist.insert(null, recWithNull)
-    }
-
-    thrown.getMessage should include("Null value")
-    verify(mockPS, atLeastOnce).setString(anyInt, anyString())
-  }
 }

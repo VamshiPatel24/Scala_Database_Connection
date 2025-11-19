@@ -3,11 +3,10 @@ package org.example.topArtist.service
 import com.github.tototoshi.csv.CSVReader
 import com.typesafe.scalalogging.Logger
 import org.example.topArtist.repository.DBConnection
-
-import scala.util.Using
+import org.slf4j.LoggerFactory
 
 class Artist {
-  val logger = Logger(getClass)
+  val logger = LoggerFactory.getLogger(getClass)
   val getConnection = new DBConnection().getConnection
   def create: Unit = {
     val stmt = getConnection.createStatement()
@@ -18,6 +17,7 @@ class Artist {
  def update(rank: String): Unit = {
   val ps = getConnection.prepareStatement(s"update Artists set playCount = '555' where rank = $rank ")
   ps.executeUpdate()
+   logger.info("record updated successfully")
  }
 
   def delete(rank: String): Unit = {

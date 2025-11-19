@@ -6,7 +6,7 @@ object PerformArtistOperation extends App{
   val artist = new Artist
   //artist.create
   //artist.insert(path)
-  //artist.delete("25")
-  artist.update("50")
+  artist.delete("55")
+  artist.update("30")
 
 }
